@@ -26,12 +26,14 @@ public:
     
     void remove(int key) {
         
-        for(auto i = mp[hash(key)].begin(); i != mp[hash(key)].end(); ++i)
-            if(*i==key)
-            {
-                mp[hash(key)].erase(i);
-                break;
-            }
+         if(!contains(key)) return;
+        
+       // for(auto i = mp[hash(key)].begin(); i != mp[hash(key)].end(); ++i)
+           // if(*i==key)
+           // {
+                mp[hash(key)].erase(find(mp[hash(key)].begin(), mp[hash(key)].end(), key));
+                //break;
+            //
                 
                 
         
