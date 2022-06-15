@@ -11,16 +11,19 @@ public:
         }
         
       //  for(int i=0; i<fn; i++)
-       //     cout<<freq[i];
+      //     cout<<freq[i];
                         
-        /*int cur=0, prev1=0, prev2=0;
+        int cur=0, prev1=0, prev2=0;
         for(int i=0; i<fn; i++){
             
             cur = max(prev1+freq[i], prev2);
             prev1 = prev2;
             prev2 = cur;
         }
-        */
+        
+        return cur;
+        
+        /*
         int dp[fn];
         
         dp[0] = freq[0];
@@ -31,8 +34,9 @@ public:
             dp[i] = max(dp[i-2]+freq[i], dp[i-1]);
             
         }
-        
-        
         return dp[fn-1];
+        */
+        
+        
     }
 };
