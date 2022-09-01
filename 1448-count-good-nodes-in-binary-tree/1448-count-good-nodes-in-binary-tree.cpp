@@ -11,39 +11,20 @@
  */
 class Solution {
 public:
-    int goodNodes(TreeNode* root) {
-        
-       if(!root) return 0;
-        int ans = 1;
-        queue<pair<TreeNode*,int>> Q;
-        Q.push({root, root->val});
-        while(!Q.empty())
-        {
-            int sz = Q.size();
-            for(int i=0; i<sz; i++)
-            {
-                pair<TreeNode*, int> front = Q.front();
-                Q.pop();
-                
-                if(front.first->left)
-                {
-                    pair<TreeNode*, int> newNode = {front.first->left, max(front.first->left->val, front.second)};
-                    
-                    if(newNode.second == newNode.first->val)
-                        ans++;
-                    Q.push(newNode);
-                }
-                
-                if(front.first->right)
-                {
-                    pair<TreeNode*, int> newNode = {front.first->right, max(front.first->right->val, front.second)};
-                    
-                    if(newNode.second == newNode.first->val)
-                        ans++;
-                    Q.push(newNode);
-                }
-            }
+void solve(TreeNode* root, int maxi, int &count){
+        if(!root) return;
+        if(root->val >= maxi){
+            count++;
+            maxi=root->val;
         }
-        return ans;
+        solve(root->left,maxi,count);
+        solve(root->right,maxi,count);
+    }
+    
+    int goodNodes(TreeNode* root) {
+        if(!root) return 0;
+        int count=0;
+        solve(root,INT_MIN,count);
+        return count; 
     }
 };
