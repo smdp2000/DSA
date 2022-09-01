@@ -11,14 +11,14 @@
  */
 class Solution {
 public:
-void solve(TreeNode* root, int maxi, int &count){
+void solve(TreeNode* root, int max, int &count){
         if(!root) return;
-        if(root->val >= maxi){
+        if(root->val >= max){
             count++;
-            maxi=root->val;
+            max=root->val;
         }
-        solve(root->left,maxi,count);
-        solve(root->right,maxi,count);
+        solve(root->left,max,count);
+        solve(root->right,max,count);
     }
     
     int goodNodes(TreeNode* root) {
