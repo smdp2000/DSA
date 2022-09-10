@@ -5,10 +5,10 @@ public:
         
         int cursum =0, curmax=nums[0];
         
-        for(auto i : nums){
+        for(int i=0; i<nums.size(); i++){
             if(cursum<0)
                 cursum=0;
-            cursum += i;
+            cursum += nums[i];
             curmax= max(curmax, cursum);
         }
         /*working second approach
