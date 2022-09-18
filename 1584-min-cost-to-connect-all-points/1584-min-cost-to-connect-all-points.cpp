@@ -1,7 +1,50 @@
+class UnionFind {
+public:
+    UnionFind(int sz) : root(sz), rank(sz) {
+        for (int i = 0; i < sz; i++) {
+            root[i] = i;
+            rank[i] = 1;
+        }
+    }
+
+    int find(int x) {
+        if (x == root[x]) {
+            return x;
+        }
+        return root[x] = find(root[x]);
+    }
+
+    void unionSet(int x, int y) {
+        int rootX = find(x);
+        int rootY = find(y);
+        if (rootX != rootY) {
+            if (rank[rootX] > rank[rootY]) {
+                root[rootY] = rootX;
+            } else if (rank[rootX] < rank[rootY]) {
+                root[rootX] = rootY;
+            } else {
+                root[rootY] = rootX;
+                rank[rootX] += 1;
+            }
+        }
+    }
+
+    bool connected(int x, int y) {
+        return find(x) == find(y);
+    }
+    
+    private:
+    vector<int> root;
+    vector<int> rank;
+    
+};
+
 class Solution {
+
+
 public:
     
-    int getParent(vector<int>& parents, int idx){
+        int getParent(vector<int>& parents, int idx){
         
         if(parents[idx]==idx){
             return idx;
@@ -13,51 +56,47 @@ public:
         
         
     }
-    
     int minCostConnectPoints(vector<vector<int>>& points) {
-        
-        int n = points.size();
-        vector<int> parents(n);        
+               
+                 vector<int> parents(points.size());        
         iota(parents.begin(), parents.end(), 0);
-        int ans = 0;
-        int edges = 0;
-        priority_queue<vector<int>> pq;
-
-        for(int i=0;i<n;i++){
-            for(int j=i+1;j<n;j++){
-                if(i!=j){
-                     pq.push({-1*(abs(points[i][0] - points[j][0]) + abs(points[i][1] - points[j][1])), i, j});
-                }
+                typedef pair<int, pair<int,int>> pi;
+        priority_queue<pi, vector<pi>, greater<pi> > pq;
+        //priority_queue<pair<int, pair<int,int>>, vector<pi>greater<int> > pq;
+        for(int i=0; i<points.size(); i++){
+            vector<int>& cd1 = points[i];
+            for(int j=i+1; j<points.size();  j++){
+                vector<int>& cd2 = points[j];
+                
+                int cost = abs(cd1[0] - cd2[0]) +
+                           abs(cd1[1] - cd2[1]);
+                
+                pq.push({cost,{i,j}});
+                cout<<pq.top().first;
             }
         }
-        
-        
-        while(edges!=n-1){
+        int count = points.size()-1;
+        int tcost = 0;
+        while(count>0){
             
-            vector<int> edge = pq.top();
-            
-            int p1 = getParent(parents, edge[1]);
-            int p2 = getParent(parents, edge[2]);
-            
-            if(p1!=p2){
-                
-                ans += -1*edge[0];
-                
-                parents[p1] = p2;
-                
-                edges++;
-                
-                
-            }
-            
+            pair<int, pair<int,int>> curr = pq.top();
+            cout<<curr.first<<endl;
             pq.pop();
+            int point1 = getParent(parents, curr.second.first);
+            int point2 = getParent(parents, curr.second.second);
+             
+           
+            if(point1!=point2){
+                    //uf.unionSet(point1,point2);
+                                parents[point1] = point2;
+
+                    tcost+=curr.first;
+                    count--;
+            
+            }
+            
             
         }
-        
-        
-        
-        return ans;
-        
-        
+        return tcost;
     }
 };
