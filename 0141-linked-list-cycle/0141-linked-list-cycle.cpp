@@ -14,7 +14,7 @@ public:
             return false;
     if(head->next!=NULL && head->next->next!=NULL){
         slow = head;
-        fast = head->next;
+        fast = head;
     }
         else
             return false;
