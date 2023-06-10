@@ -16,9 +16,17 @@ public:
         
         if (left>right) return NULL;
             
-        int pivot=0;
+        int pivot=left;
         
-        while(preorder[rootindx]!=inorder[pivot]) pivot++;
+        while(preorder[rootindx]!=inorder[pivot]) {
+           // cout<<" rootindx is "<< rootindx<<" pivot is "<<pivot<<" left is"<<left<<" right is "<<right<<endl;
+            
+              pivot++;
+            
+        }
+        
+                    //cout<<" OUt rootindx is "<< rootindx<<" pivot is "<<pivot<<" left is"<<left<<" right is "<<right<<endl;
+
         
         TreeNode* node= new TreeNode(preorder[rootindx]);
         rootindx++;
