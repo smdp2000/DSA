@@ -12,30 +12,30 @@
 class Solution {
 public:
     
-    TreeNode* build(vector<int>& preorder, vector<int>& inorder, int& rootIdx, int left, int right){
-        if(left>right) return NULL;
+    TreeNode* getBinaryTree(vector<int>& preorder, vector<int>& inorder, int &rootindx, int left, int right){
         
-        int pivot = left;
+        if (left>right) return NULL;
+            
+        int pivot=0;
         
-        while(preorder[rootIdx]!=inorder[pivot]) pivot++;
+        while(preorder[rootindx]!=inorder[pivot]) pivot++;
         
-        TreeNode* root = new TreeNode(inorder[pivot]);
+        TreeNode* node= new TreeNode(preorder[rootindx]);
+        rootindx++;
+        
+        node->left = getBinaryTree(preorder, inorder,rootindx, left, pivot-1);
+        node->right = getBinaryTree(preorder, inorder,rootindx, pivot+1, right);
+        
+        return node;
 
-                rootIdx++;
-
-        root->left = build(preorder, inorder, rootIdx, left, pivot-1 );
-        root->right = build(preorder, inorder, rootIdx, pivot+1, right);
-        
-        return root;
-        
         
     }
     
-    
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        int rootindx=0;
         
-    int rootindx = 0;
-    return build(preorder, inorder, rootindx, 0, preorder.size()-1);
+        return getBinaryTree(preorder, inorder,rootindx, 0, preorder.size()-1);
+        
         
     }
 };
