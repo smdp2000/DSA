@@ -12,27 +12,25 @@ public:
             while(!dq.empty()&& chargeTimes[dq.back()]<=chargeTimes[end]) dq.pop_back();
             
             dq.push_back(end);
-            cout<<dq.size()<<endl;
+            //cout<<dq.size()<<endl;
             
             long long current_cost = chargeTimes[dq.front()]+ (end-start+1) * sum;
             
             while(current_cost>budget){
                 
                 sum-=runningCosts[start];
-                cout<<dq.front();
+                //cout<<dq.front();
                 if(dq.front()==start) dq.pop_front();
-                                cout<<dq.front();
+                                //cout<<dq.front();
 
                 
                 start++;
-                if(start>end){
+                if(start>end){// to handle case we pop out the elements from queue
                     current_cost=0;
                 }
                 else{
-                                    current_cost = chargeTimes[dq.front()] + (end-start+1) * sum;
-
+                    current_cost = chargeTimes[dq.front()] + (end-start+1) * sum;
                 }
-                
                 
             }
             
