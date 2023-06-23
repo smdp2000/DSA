@@ -24,7 +24,7 @@ public:
             
             r--;
             
-            if (!(l < r && t < b))
+            if (!(l < r && t < b)) // imp condition
                 break;
             
             for(int i=r-1; i>=l; i--){
@@ -48,6 +48,3 @@ public:
     }
 };
 
-// 1 2     3   4 t=1
-// 5 6     7   8 b=2 l=1  t=2 r=2
-// 9 10    11 12 r=3
