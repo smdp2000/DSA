@@ -26,9 +26,33 @@ public:
     
     int numSquares(int n) {
         
-      vector<int>dp(n+1,-1);
+        queue<int>q;
         
-      return getWays(n, dp);
+        q.push(n);
+        int count = 0;
+        while(!q.empty()){
+            
+            int layer_size = q.size();
+            count++;
+            for(int i=0; i<layer_size; i++){
+                
+                int m = q.front();
+                
+                
+                for(int j=1; j*j<=m; j++){
+                    
+                    if(m-j*j==0)
+                        return count;
+                    if(m-j*j>0)
+                        q.push(m-j*j);
+                }
+                
+                q.pop();
+            }
+            
+        }
+        
+        return count;
         
     }
 };
