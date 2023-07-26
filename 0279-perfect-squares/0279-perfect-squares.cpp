@@ -13,13 +13,12 @@ public:
         
         
       //  int x = (int)sqrt(n);
-        int minvalue=INT_MAX;
-        for(int i=1;i*i<=n;i++){
-            int minperfectsquarepro=getWays(n-i*i,dp);
-            minvalue=min(minvalue,minperfectsquarepro+1);
+        int numways = INT_MAX;
+        for(int i=1; i*i<=n; i++){
+            numways =  min(numways,1+getWays(n-i*i, dp));
         }
         
-        return dp[n]=minvalue;
+        return dp[n]=numways;
         
         
         
